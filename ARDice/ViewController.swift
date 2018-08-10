@@ -24,10 +24,40 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.showsStatistics = true
         
         // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let earth = SCNSphere(radius: 0.2)
+        let moon = SCNSphere(radius:0.1)
+        let jupiter = SCNSphere(radius:0.4)
+        let ematerial = SCNMaterial()
+        let mmaterial = SCNMaterial()
+        let jmaterial = SCNMaterial()
         
+        ematerial.diffuse.contents = UIImage(named: "art.scnassets/2k_earth_daymap.jpg")
+        mmaterial.diffuse.contents = UIImage(named: "art.scnassets/2k_moon.jpg")
+        jmaterial.diffuse.contents = UIImage(named: "art.scnassets/2k_jupiter.jpg")
+        
+        earth.materials = [ematerial]
+        moon.materials = [mmaterial]
+        jupiter.materials = [jmaterial]
+        
+        let enode = SCNNode()
+        let mnode = SCNNode()
+        let jnode = SCNNode()
+        
+        enode.position = SCNVector3(x: 0, y: 0.1, z: -0.5)
+        mnode.position = SCNVector3(x: 0, y: 0.1, z: -2)
+        jnode.position = SCNVector3(x: 0, y: 0.1, z: 3)
+        enode.geometry = earth
+        mnode.geometry = moon
+        jnode.geometry = jupiter
+        
+        sceneView.scene.rootNode.addChildNode(enode)
+        sceneView.scene.rootNode.addChildNode(mnode)
+        sceneView.scene.rootNode.addChildNode(jnode)
+        
+        sceneView.autoenablesDefaultLighting = true
         // Set the scene to the view
-        sceneView.scene = scene
+        //sceneView.scene = scene
     }
     
     override func viewWillAppear(_ animated: Bool) {
